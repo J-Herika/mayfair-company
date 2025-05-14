@@ -1,8 +1,18 @@
 @import 'tailwindcss';
 
+@theme {
+	--color-primary: #171717;
+	--color-background: #efefef;
+	--color-footer: #46464610;
+
+	--font-montserrat: 'Montserrat', 'serif';
+	--font-grotesque: 'Bricolage Grotesque', 'sans-serif';
+}
+
 html {
 	height: 100%;
 }
 body {
 	height: 100%;
+	@apply bg-background mx-auto;
 }
