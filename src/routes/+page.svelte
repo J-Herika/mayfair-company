@@ -207,8 +207,8 @@
 		<section class="flex flex-col gap-3.5">
 			<p class="text-3xl font-black">Contact</p>
 			<p class="text-xl font-black">
-				Phone Number :
-				<span class="font-montserrat text-xl font-light">(+971) - 507670657</span>
+				Number :
+				<span class="font-montserrat text-lg font-light">(+971) - 507670657</span>
 			</p>
 
 			<iframe
