@@ -1,18 +1,26 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
 	import { slide } from 'svelte/transition';
-	let isHoverID = $state(0);
+	let isHoverSpecialization = $state(0);
+	let isHoverProject = $state(0);
 	let slideCount = $state(0);
 	const incrementSlideCount = () => {
 		slideCount++;
 		if (slideCount > 2) slideCount = 0;
 	};
 	function enter(id: number) {
-		isHoverID = id;
+		isHoverSpecialization = id;
 	}
 	function exist(id: number) {
-		isHoverID = id;
+		isHoverSpecialization = 0;
 	}
+	function enterProject(id: number) {
+		isHoverProject = id;
+	}
+	function existProject(id: number) {
+		isHoverProject = 0;
+	}
+
 	const mepInfo = [
 		{
 			title: 'Electrical',
@@ -70,6 +78,39 @@
 				'We offer professional maintenance across electrical, HVAC, and plumbing systems for villas, multi-story buildings, hospitals, mosques, schools, and hotels. Our electrical work covers switchgears, MATV systems, music systems, and diesel generators. HVAC services include central air conditioning systems in residential and commercial facilities. Plumbing maintenance covers drainage, water supply, and fire-fighting systems, handled by qualified engineers and experienced technicians. We serve both private clients and government departments with reliable, responsive service.'
 		}
 	];
+
+	const projects = [
+		{
+			id: 1,
+			header: 'civil',
+			content:
+				'Our civil works include residential, commercial, and institutional buildings—managed from design to completion with a focus on quality, safety, and structural durability.'
+		},
+		{
+			id: 2,
+			header: 'Decoration',
+			content:
+				'We deliver interior and exterior decoration projects with attention to detail, combining aesthetics and technical precision across villas, offices, and public spaces.'
+		},
+		{
+			id: 3,
+			header: 'Pneumatic Tube System',
+			content:
+				'We design and install Pneumatic Tube Systems for hospitals, ensuring efficient, hygienic transport systems that meet critical healthcare standards.'
+		},
+		{
+			id: 4,
+			header: 'A/C',
+			content:
+				'Our air conditioning projects cover design, installation, and maintenance of central systems—chillers, AHUs, ductwork, and more—for all building types.'
+		},
+		{
+			id: 5,
+			header: 'MEP',
+			content:
+				'We execute integrated mechanical, electrical, and plumbing works—delivering reliable, coordinated systems for residential, commercial, and institutional projects.'
+		}
+	];
 </script>
 
 <header class="font-grotesque mx-auto mt-5 flex w-7xl items-center justify-between">
@@ -104,17 +145,17 @@
 			{#each specialize as section}
 				<div
 					onmouseenter={() => {
-						enter(section.id);
+						enter(section.id, isHoverSpecialization);
 					}}
 					onmouseleave={() => {
-						exist(section.id);
+						exist(section.id, isHoverSpecialization);
 					}}
 					class="border-primary flex h-[299px] items-center gap-10 border-t-2"
 				>
-					{#if isHoverID != section.id}
+					{#if isHoverSpecialization != section.id}
 						<p class="text-5xl">●</p>
 						<h3 class="text-7xl font-extralight">{section.header}</h3>
-					{:else if isHoverID === section.id}
+					{:else if isHoverSpecialization === section.id}
 						<img src={section.img} alt="MEP services" class="h-full" />
 
 						<div class="flex h-full w-full flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
@@ -150,33 +191,25 @@
 	<section class="font-grotesque mt-40">
 		<div class="mx-auto w-7xl"><h2 class="text-6xl font-black">Our Work</h2></div>
 		<div class="mt-5 flex h-[826px] items-center justify-between border-y-2">
-			<div class="flex flex-1 items-center justify-center text-5xl font-extralight">
-				<p>Civil</p>
-			</div>
+			{#each projects as projectSection}
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					onmouseenter={() => enterProject(projectSection.id)}
+					onmouseleave={() => existProject(projectSection.id)}
+					class="flex h-full flex-1 items-center justify-center text-5xl font-extralight hover:flex-2"
+				>
+					{#if isHoverProject == projectSection.id}
+						<div class="flex h-full flex-col justify-evenly py-28">
+							<p class="text-center">{projectSection.header}</p>
+							<p class="text-center text-xl font-light">{projectSection.content}</p>
+						</div>
+					{:else}
+						<p class="text-center">{projectSection.header}</p>
+					{/if}
+				</div>
 
-			<div class="h-full w-px bg-black"></div>
-
-			<div class="flex flex-1 items-center justify-center text-5xl font-extralight">
-				<p>Decoration</p>
-			</div>
-
-			<div class="h-full w-px bg-black"></div>
-
-			<div class="flex flex-1 items-center justify-center text-center text-5xl font-extralight">
-				<p>Pneumatic <br /> Tube System</p>
-			</div>
-
-			<div class="h-full w-px bg-black"></div>
-
-			<div class="flex flex-1 items-center justify-center text-5xl font-extralight">
-				<p>A/C</p>
-			</div>
-
-			<div class="h-full w-px bg-black"></div>
-
-			<div class="flex flex-1 items-center justify-center text-5xl font-extralight">
-				<p>MEP</p>
-			</div>
+				<div class="h-full w-px bg-black"></div>
+			{/each}
 		</div>
 	</section>
 	<section class="font-grotesque mx-auto mt-40 w-7xl">
