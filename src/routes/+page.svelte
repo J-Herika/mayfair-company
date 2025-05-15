@@ -1,5 +1,75 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
+	import { slide } from 'svelte/transition';
+	let isHoverID = $state(0);
+	let slideCount = $state(0);
+	const incrementSlideCount = () => {
+		slideCount++;
+		if (slideCount > 2) slideCount = 0;
+	};
+	function enter(id: number) {
+		isHoverID = id;
+	}
+	function exist(id: number) {
+		isHoverID = id;
+	}
+	const mepInfo = [
+		{
+			title: 'Electrical',
+			desc: 'We handle complete electrical systems from design to execution—including high- and low-voltage switchgears, substation installations (11kV & 33kV), fire alarm systems, CCTV, intercoms, and backup generators. Maintenance services cover villas, multi-story buildings, hotels, and institutional facilities.'
+		},
+		{
+			title: 'HVAC (Air Conditioning)',
+			desc: 'We design, install, and maintain advanced air conditioning systems, including chillers, cooling towers, AHUs, VAVs, BMS, ductwork, and chilled water systems. Our projects span commercial, residential, and critical infrastructure like hospitals and printing presses.'
+		},
+		{
+			title: 'Plumbing',
+			desc: 'We offer complete water supply, drainage, and fire-fighting system installations. Services include sanitary ware, solar and electric water heaters, central filtration systems, booster pumps, and all hot/cold piping. Our team also manages long-term maintenance across sectors like education, hospitality, and healthcare.'
+		}
+	];
+
+	const specialize = [
+		{
+			id: 1,
+			header: 'MEP Services ( HVAC, Electrical & Plumbing )',
+			img: '/mepImg.webp',
+			contentList: [
+				{
+					title: 'Electrical',
+					desc: 'We handle complete electrical systems from design to execution—including high- and low-voltage switchgears, substation installations (11kV & 33kV), fire alarm systems, CCTV, intercoms, and backup generators. Maintenance services cover villas, multi-story buildings, hotels, and institutional facilities.'
+				},
+				{
+					title: 'HVAC (Air Conditioning)',
+					desc: 'We design, install, and maintain advanced air conditioning systems, including chillers, cooling towers, AHUs, VAVs, BMS, ductwork, and chilled water systems. Our projects span commercial, residential, and critical infrastructure like hospitals and printing presses.'
+				},
+				{
+					title: 'Plumbing',
+					desc: 'We offer complete water supply, drainage, and fire-fighting system installations. Services include sanitary ware, solar and electric water heaters, central filtration systems, booster pumps, and all hot/cold piping. Our team also manages long-term maintenance across sectors like education, hospitality, and healthcare.'
+				}
+			]
+		},
+		{
+			id: 2,
+			header: 'Civil Works',
+			img: '/civil.webp',
+			content:
+				'With decades of experience in structural construction, we deliver complete civil contracting solutions from design to project handover. Our team is equipped with the expertise and equipment to execute complex builds with high-quality workmanship and time-bound delivery. We work across sectors including residential, commercial, educational, and institutional developments.'
+		},
+		{
+			id: 3,
+			header: 'Pneumatic Tube Systems',
+			img: '/pts.webp',
+			content:
+				'We are specialists in the design, supply, installation, testing, commissioning, and maintenance of Pneumatic Tube Systems—especially in healthcare environments. From transfer stations to blowers and accessories, our systems are engineered for speed, reliability, and hygiene. Trusted by hospitals across the region, our PTS solutions enhance medical logistics and operational efficiency.'
+		},
+		{
+			id: 4,
+			header: 'Maintenance Services',
+			img: '/maintenance.webp',
+			content:
+				'We offer professional maintenance across electrical, HVAC, and plumbing systems for villas, multi-story buildings, hospitals, mosques, schools, and hotels. Our electrical work covers switchgears, MATV systems, music systems, and diesel generators. HVAC services include central air conditioning systems in residential and commercial facilities. Plumbing maintenance covers drainage, water supply, and fire-fighting systems, handled by qualified engineers and experienced technicians. We serve both private clients and government departments with reliable, responsive service.'
+		}
+	];
 </script>
 
 <header class="font-grotesque mx-auto mt-5 flex w-7xl items-center justify-between">
@@ -30,22 +100,51 @@
 	<section class="font-grotesque mt-60">
 		<div class="mx-auto w-7xl"><h2 class="text-6xl font-black">What we Specialize in</h2></div>
 		<div class="mt-5">
-			<div class="border-primary flex h-[266px] items-center gap-10 border-t-2">
-				<p class="text-5xl">●</p>
-				<h3 class="text-7xl font-extralight">MEP Services</h3>
-			</div>
-			<div class="border-primary flex h-[266px] items-center gap-10 border-t-2">
-				<p class="text-5xl">●</p>
-				<h3 class="text-7xl font-extralight">Civil Works</h3>
-			</div>
-			<div class="border-primary flex h-[266px] items-center gap-10 border-t-2">
-				<p class="text-5xl">●</p>
-				<h3 class="text-7xl font-extralight">Pneumatic Tube System Projects</h3>
-			</div>
-			<div class="border-primary flex h-[266px] items-center gap-10 border-y-2">
-				<p class="text-5xl">●</p>
-				<h3 class="text-7xl font-extralight">Maintenance Services</h3>
-			</div>
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			{#each specialize as section}
+				<div
+					onmouseenter={() => {
+						enter(section.id);
+					}}
+					onmouseleave={() => {
+						exist(section.id);
+					}}
+					class="border-primary flex h-[299px] items-center gap-10 border-t-2"
+				>
+					{#if isHoverID != section.id}
+						<p class="text-5xl">●</p>
+						<h3 class="text-7xl font-extralight">{section.header}</h3>
+					{:else if isHoverID === section.id}
+						<img src={section.img} alt="MEP services" class="h-full" />
+
+						<div class="flex h-full w-full flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
+							{#if section.id != 1}
+								<h4 class="text-4xl font-black">{section.header}</h4>
+								<div class="flex flex-col">
+									<div class="flex w-[80ch]">
+										<p>
+											{section.content}
+										</p>
+									</div>
+								</div>
+							{:else}
+								<h4 class="text-4xl font-black">MEP Services (HVAC, Electrical & Plumbing)</h4>
+								<div class="flex flex-col">
+									<h5 class="text-3xl font-bold">{section.contentList![slideCount].title}</h5>
+									<div class="flex w-[80ch]">
+										<p>
+											{section.contentList![slideCount].desc}
+										</p>
+									</div>
+									<button class="self-end hover:bg-rose-300" onclick={incrementSlideCount}
+										>➜ Next Slide</button
+									>
+								</div>
+							{/if}
+						</div>
+					{/if}
+				</div>
+			{/each}
 		</div>
 	</section>
 	<section class="font-grotesque mt-40">
@@ -114,10 +213,10 @@
 
 			<iframe
 				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d331.8415044230076!2d-88.53732798262237!3d30.443398996175063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x889bebc27560cf7d%3A0xda9c6e63fccb006a!2s4405%20Neese%20Ln%2C%20Moss%20Point%2C%20MS%2039563%2C%20USA!5e1!3m2!1sen!2str!4v1747248192466!5m2!1sen!2str"
-				width="260"
+				width="300"
 				height="260"
 				style="border:0;"
-				allowfullscreen=""
+				allowfullscreen={null}
 				loading="lazy"
 				referrerpolicy="no-referrer-when-downgrade"
 			></iframe>

@@ -16,3 +16,7 @@ body {
 	height: 100%;
 	@apply bg-background mx-auto;
 }
+
+*{
+	/* @apply border-1 border-red-400 */
+}
