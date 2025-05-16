@@ -1,19 +1,79 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
+	import { onMount, tick } from 'svelte';
 	import { slide } from 'svelte/transition';
-	let isHoverSpecialization = $state(0);
+
+	let textDiv: gsap.TweenTarget = $state(null);
+	let imgDiv: gsap.TweenTarget = $state(null);
+
+	let slideContent: gsap.TweenTarget = $state(null);
+	let slideHeader: gsap.TweenTarget = $state(null);
+
+	let headerDot: gsap.TweenTarget = $state(null);
+	let headerText: gsap.TweenTarget = $state(null);
+
+	let isHoverSpecialization = $state(false);
 	let isHoverProject = $state(0);
 	let slideCount = $state(0);
+
 	const incrementSlideCount = () => {
 		slideCount++;
 		if (slideCount > 2) slideCount = 0;
+		slideHandler();
 	};
-	function enter(id: number) {
-		isHoverSpecialization = id;
+
+	async function slideHandler() {
+		await tick();
+		gsap.from(slideContent, { opacity: 0, y: -20, duration: 1 });
+		gsap.from(slideHeader, { opacity: 0, y: -20, duration: 1 });
 	}
-	function exist(id: number) {
-		isHoverSpecialization = 0;
+
+	async function headerHandler() {
+		await tick();
+
+		gsap.from(headerDot, { opacity: 0, x: 200, duration: 1.5, overwrite: false });
+		gsap.from(headerText, { opacity: 0, x: 200, duration: 1.5, overwrite: false });
 	}
+
+	async function enterHandler() {
+		isHoverSpecialization = true;
+		await tick();
+		if (textDiv && imgDiv) {
+			gsap.fromTo(
+				textDiv,
+				{ opacity: 0, x: 300, duration: 1.5 },
+				{ opacity: 1, x: 0, duration: 1.5, overwrite: false }
+			);
+
+			gsap.fromTo(
+				imgDiv,
+				{ opacity: 0, x: 300, duration: 1.5 },
+				{ opacity: 1, x: 0, duration: 1.5, overwrite: false }
+			);
+		}
+	}
+	function leaveHandler() {
+		if (textDiv && imgDiv) {
+			gsap.to(textDiv, {
+				opacity: 0,
+				x: -300,
+				duration: 1,
+				onComplete: () => {
+					isHoverSpecialization = false;
+				}
+			});
+			gsap.to(imgDiv, {
+				opacity: 0,
+				x: -300,
+				duration: 1,
+				onComplete: () => {
+					isHoverSpecialization = false;
+					headerHandler();
+				}
+			});
+		}
+	}
+
 	function enterProject(id: number) {
 		isHoverProject = id;
 	}
@@ -115,17 +175,31 @@
 
 <header class="font-grotesque mx-auto mt-5 flex w-7xl items-center justify-between">
 	<section>
-		<p class="text-4xl font-black">MayFair</p>
+		<p
+			class="relative inline-block text-4xl font-black after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+		>
+			<a href="/">MayFair</a>
+		</p>
 		<p class="text-sm font-black">Built on Quality. Backed by 40 Years.</p>
 	</section>
 	<section class="flex gap-10 text-2xl font-extralight">
-		<p>About</p>
-		<p>Projects</p>
-		<p>Contact</p>
+		<a
+			href="/"
+			class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+			>About</a
+		><a
+			href="/"
+			class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+			>Projects</a
+		><a
+			href="/"
+			class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+			>Contact</a
+		>
 	</section>
 </header>
 
-<main class="font-grotesque mt-10">
+<main class="font-grotesque mt-10 overflow-x-hidden">
 	<div class="mx-auto w-7xl">
 		<img src="/Hero-Img.webp" alt="A black building designed like a Jenga" />
 		<section class="mt-10">
@@ -140,52 +214,42 @@
 	</div>
 	<section class="font-grotesque mt-60">
 		<div class="mx-auto w-7xl"><h2 class="text-6xl font-black">What we Specialize in</h2></div>
-		<div class="mt-5">
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			{#each specialize as section}
-				<div
-					onmouseenter={() => {
-						enter(section.id, isHoverSpecialization);
-					}}
-					onmouseleave={() => {
-						exist(section.id, isHoverSpecialization);
-					}}
-					class="border-primary flex h-[299px] items-center gap-10 border-t-2"
-				>
-					{#if isHoverSpecialization != section.id}
-						<p class="text-5xl">●</p>
-						<h3 class="text-7xl font-extralight">{section.header}</h3>
-					{:else if isHoverSpecialization === section.id}
-						<img src={section.img} alt="MEP services" class="h-full" />
 
-						<div class="flex h-full w-full flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
-							{#if section.id != 1}
-								<h4 class="text-4xl font-black">{section.header}</h4>
-								<div class="flex flex-col">
-									<div class="flex w-[80ch]">
-										<p>
-											{section.content}
-										</p>
-									</div>
-								</div>
-							{:else}
-								<h4 class="text-4xl font-black">MEP Services (HVAC, Electrical & Plumbing)</h4>
-								<div class="flex flex-col">
-									<h5 class="text-3xl font-bold">{section.contentList![slideCount].title}</h5>
-									<div class="flex w-[80ch]">
-										<p>
-											{section.contentList![slideCount].desc}
-										</p>
-									</div>
-									<button class="self-end hover:bg-rose-300" onclick={incrementSlideCount}
-										>➜ Next Slide</button
-									>
-								</div>
-							{/if}
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			onmouseenter={enterHandler}
+			onmouseleave={leaveHandler}
+			class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		>
+			{#if !isHoverSpecialization}
+				<p bind:this={headerDot} class="text-5xl">●</p>
+				<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
+					{specialize[0].header}
+				</h3>
+			{:else}
+				<img
+					bind:this={imgDiv}
+					src={specialize[0].img}
+					alt="MEP services"
+					class="spec-img-div h-full"
+				/>
+				<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
+					<h4 class="text-4xl font-black">MEP Services (HVAC, Electrical & Plumbing)</h4>
+					<div class="flex flex-col">
+						<h5 bind:this={slideHeader} class="text-3xl font-bold">
+							{specialize[0].contentList![slideCount].title}
+						</h5>
+						<div bind:this={slideContent} class="flex w-[80ch]">
+							<p>
+								{specialize[0].contentList![slideCount].desc}
+							</p>
 						</div>
-					{/if}
+						<button class="self-end hover:bg-rose-300" onclick={incrementSlideCount}
+							>➜ Next Slide</button
+						>
+					</div>
 				</div>
-			{/each}
+			{/if}
 		</div>
 	</section>
 	<section class="font-grotesque mt-40">
@@ -233,9 +297,19 @@
 			<p class="text-2xl font-extralight">Legacy Built on Quality, Since 1984.</p>
 		</section>
 		<section class="flex gap-10 text-2xl font-extralight">
-			<p>About</p>
-			<p>Projects</p>
-			<p>Contact</p>
+			<a
+				href="/"
+				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+				>About</a
+			><a
+				href="/"
+				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+				>Projects</a
+			><a
+				href="/"
+				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2"
+				>Contact</a
+			>
 		</section>
 		<section class="flex flex-col gap-3.5">
 			<p class="text-3xl font-black">Contact</p>
