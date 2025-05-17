@@ -3,6 +3,8 @@
 	import { onMount, tick } from 'svelte';
 	import { slide } from 'svelte/transition';
 
+	let isAnimating: boolean | null = null;
+
 	let textDiv: gsap.TweenTarget = $state(null);
 	let imgDiv: gsap.TweenTarget = $state(null);
 
@@ -31,24 +33,26 @@
 	async function headerHandler() {
 		await tick();
 
-		gsap.from(headerDot, { opacity: 0, x: 200, duration: 1.5, overwrite: false });
-		gsap.from(headerText, { opacity: 0, x: 200, duration: 1.5, overwrite: false });
+		gsap.from(headerDot, { opacity: 0, x: 200, duration: 0.7, overwrite: false });
+		gsap.from(headerText, { opacity: 0, x: 200, duration: 0.7, overwrite: false });
 	}
 
 	async function enterHandler() {
+		if (isAnimating) return;
 		isHoverSpecialization = true;
 		await tick();
+
 		if (textDiv && imgDiv) {
 			gsap.fromTo(
 				textDiv,
-				{ opacity: 0, x: 300, duration: 1.5 },
-				{ opacity: 1, x: 0, duration: 1.5, overwrite: false }
+				{ opacity: 0, x: 300, duration: 1 },
+				{ opacity: 1, x: 0, duration: 1, overwrite: false }
 			);
 
 			gsap.fromTo(
 				imgDiv,
-				{ opacity: 0, x: 300, duration: 1.5 },
-				{ opacity: 1, x: 0, duration: 1.5, overwrite: false }
+				{ opacity: 0, x: 300, duration: 1 },
+				{ opacity: 1, x: 0, duration: 1, overwrite: false }
 			);
 		}
 	}
@@ -57,7 +61,7 @@
 			gsap.to(textDiv, {
 				opacity: 0,
 				x: -300,
-				duration: 1,
+				duration: 0.2,
 				onComplete: () => {
 					isHoverSpecialization = false;
 				}
@@ -65,7 +69,7 @@
 			gsap.to(imgDiv, {
 				opacity: 0,
 				x: -300,
-				duration: 1,
+				duration: 0.2,
 				onComplete: () => {
 					isHoverSpecialization = false;
 					headerHandler();
@@ -244,8 +248,9 @@
 								{specialize[0].contentList![slideCount].desc}
 							</p>
 						</div>
-						<button class="self-end hover:bg-rose-300" onclick={incrementSlideCount}
-							>➜ Next Slide</button
+						<button
+							class="self-end transition-all duration-250 ease-linear hover:translate-x-2 hover:scale-105 hover:cursor-pointer"
+							onclick={incrementSlideCount}>➜ Next Slide</button
 						>
 					</div>
 				</div>
