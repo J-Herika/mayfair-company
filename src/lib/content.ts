@@ -1,4 +1,4 @@
-const specialize = [
+export const specialize = [
 	{
 		id: 1,
 		header: 'MEP Services ( HVAC, Electrical & Plumbing )',
@@ -38,5 +38,38 @@ const specialize = [
 		img: '/maintenance.webp',
 		content:
 			'We provide comprehensive maintenance services across Electrical, HVAC, and Plumbing systems. Our expert teams ensure system longevity, efficiency, and compliance through proactive servicing and quick response times. We manage maintenance contracts for private clients and government departments alike, including:'
+	}
+];
+
+export const projects = [
+	{
+		id: 1,
+		header: 'civil',
+		content:
+			'Our civil works include residential, commercial, and institutional buildings—managed from design to completion with a focus on quality, safety, and structural durability.'
+	},
+	{
+		id: 2,
+		header: 'Decoration',
+		content:
+			'We deliver interior and exterior decoration projects with attention to detail, combining aesthetics and technical precision across villas, offices, and public spaces.'
+	},
+	{
+		id: 3,
+		header: 'Pneumatic Tube System',
+		content:
+			'We design and install Pneumatic Tube Systems for hospitals, ensuring efficient, hygienic transport systems that meet critical healthcare standards.'
+	},
+	{
+		id: 4,
+		header: 'A/C',
+		content:
+			'Our air conditioning projects cover design, installation, and maintenance of central systems—chillers, AHUs, ductwork, and more—for all building types.'
+	},
+	{
+		id: 5,
+		header: 'MEP',
+		content:
+			'We execute integrated mechanical, electrical, and plumbing works—delivering reliable, coordinated systems for residential, commercial, and institutional projects.'
 	}
 ];
