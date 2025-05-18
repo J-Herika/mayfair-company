@@ -1,7 +1,7 @@
 export const specialize = [
 	{
 		id: 1,
-		header: 'MEP Services ( HVAC, Electrical & Plumbing )',
+		header: 'MEP Services',
 		img: '/mepImg.webp',
 		contentList: [
 			{

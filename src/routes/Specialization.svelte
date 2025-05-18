@@ -27,8 +27,8 @@
 
 	async function slideHandler() {
 		await tick();
-		gsap.from(slideContent, { opacity: 0, y: -20, duration: 1 });
-		gsap.from(slideHeader, { opacity: 0, y: -20, duration: 1 });
+		gsap.from(slideContent, { opacity: 0, y: -20, duration: 0.4 });
+		gsap.from(slideHeader, { opacity: 0, y: -20, duration: 0.4 });
 	}
 
 	async function headerHandler() {
@@ -135,14 +135,14 @@
 	<div
 		onmouseenter={() => enterHandler(specialize[0].id)}
 		onmouseleave={() => leaveHandler(specialize[0].id)}
-		class="border-primary relative flex h-auto flex-col items-start gap-6 border-t-2 lg:h-[299px] lg:flex-row lg:items-center lg:gap-10"
+		class="border-primary relative flex h-auto flex-col items-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:gap-10"
 	>
 		{#if !isHoverSpecialization}
-			<p bind:this={headerDot} class="text-5xl">●</p>
 			<h3
 				bind:this={headerText}
-				class="spe-header text-3xl font-extralight sm:text-3xl lg:text-7xl"
+				class="spe-header flex items-center gap-6 pl-2 text-3xl font-extralight sm:text-3xl md:gap-10 lg:text-7xl"
 			>
+				<div class="size-3 rounded-full bg-black"></div>
 				<span>{specialize[0].header}</span>
 			</h3>
 		{:else}
@@ -150,7 +150,7 @@
 				bind:this={imgDiv}
 				src={specialize[0].img}
 				alt="MEP services"
-				class="spec-img-div w-1/2 object-cover lg:h-full"
+				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
 			/>
 			<div
 				bind:this={textDiv}
