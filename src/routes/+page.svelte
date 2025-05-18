@@ -3,8 +3,6 @@
 	import { onMount, tick } from 'svelte';
 	import { slide } from 'svelte/transition';
 
-	let isAnimating: boolean | null = null;
-
 	let textDiv: gsap.TweenTarget = $state(null);
 	let imgDiv: gsap.TweenTarget = $state(null);
 
@@ -15,8 +13,20 @@
 	let headerText: gsap.TweenTarget = $state(null);
 
 	let isHoverSpecialization = $state(false);
-	let isHoverProject = $state(0);
+	let isHoverProject = $state(false);
 	let slideCount = $state(0);
+
+	let isHoverSpecial2 = $state(false);
+	let isHoverSpecial3 = $state(false);
+	let isHoverSpecial4 = $state(false);
+
+	let isHoverProject2 = $state(false);
+	let isHoverProject3 = $state(false);
+	let isHoverProject4 = $state(false);
+	let isHoverProject5 = $state(false);
+
+	let projContentDiv: gsap.TweenTarget = $state(null);
+	let projheader: gsap.TweenTarget = $state(null);
 
 	const incrementSlideCount = () => {
 		slideCount++;
@@ -32,57 +42,163 @@
 
 	async function headerHandler() {
 		await tick();
-
-		gsap.from(headerDot, { opacity: 0, x: 200, duration: 0.7, overwrite: false });
-		gsap.from(headerText, { opacity: 0, x: 200, duration: 0.7, overwrite: false });
+		gsap.from(headerDot, { opacity: 0, duration: 0.5, overwrite: false });
+		gsap.from(headerText, { opacity: 0, duration: 0.5, overwrite: false });
 	}
 
-	async function enterHandler() {
-		if (isAnimating) return;
-		isHoverSpecialization = true;
+	async function enterHandler(id: number) {
+		switch (id) {
+			case 1:
+				isHoverSpecialization = true;
+				break;
+			case 2:
+				isHoverSpecial2 = true;
+				break;
+			case 3:
+				isHoverSpecial3 = true;
+				break;
+			case 4:
+				isHoverSpecial4 = true;
+				break;
+
+			default:
+				break;
+		}
 		await tick();
 
 		if (textDiv && imgDiv) {
 			gsap.fromTo(
 				textDiv,
-				{ opacity: 0, x: 300, duration: 1 },
-				{ opacity: 1, x: 0, duration: 1, overwrite: false }
+				{ opacity: 0, x: 300, duration: 1, ease: 'power2.out' },
+				{ opacity: 1, x: 0, duration: 1, overwrite: false, ease: 'power2.out' }
 			);
 
 			gsap.fromTo(
 				imgDiv,
-				{ opacity: 0, x: 300, duration: 1 },
-				{ opacity: 1, x: 0, duration: 1, overwrite: false }
+				{ opacity: 0, x: 300, duration: 1, ease: 'power2.out' },
+				{ opacity: 1, x: 0, duration: 1, overwrite: false, ease: 'power2.out' }
 			);
 		}
 	}
-	function leaveHandler() {
+	function leaveHandler(id: number) {
 		if (textDiv && imgDiv) {
 			gsap.to(textDiv, {
 				opacity: 0,
 				x: -300,
 				duration: 0.2,
+				ease: 'power2.in',
 				onComplete: () => {
-					isHoverSpecialization = false;
+					switch (id) {
+						case 1:
+							isHoverSpecialization = false;
+							break;
+						case 2:
+							isHoverSpecial2 = false;
+							break;
+						case 3:
+							isHoverSpecial3 = false;
+							break;
+						case 4:
+							isHoverSpecial4 = false;
+							break;
+
+						default:
+							break;
+					}
 				}
 			});
 			gsap.to(imgDiv, {
 				opacity: 0,
 				x: -300,
 				duration: 0.2,
+				ease: 'power2.in',
 				onComplete: () => {
-					isHoverSpecialization = false;
+					switch (id) {
+						case 1:
+							isHoverSpecialization = false;
+							break;
+						case 2:
+							isHoverSpecial2 = false;
+							break;
+						case 3:
+							isHoverSpecial3 = false;
+							break;
+						case 4:
+							isHoverSpecial4 = false;
+							break;
+
+						default:
+							break;
+					}
 					headerHandler();
 				}
 			});
 		}
 	}
 
-	function enterProject(id: number) {
-		isHoverProject = id;
+	async function enterProject(id: number) {
+		switch (id) {
+			case 1:
+				isHoverProject = true;
+				break;
+			case 2:
+				isHoverProject2 = true;
+				break;
+			case 3:
+				isHoverProject3 = true;
+				break;
+			case 4:
+				isHoverProject4 = true;
+				break;
+			case 5:
+				isHoverProject5 = true;
+				break;
+
+			default:
+				break;
+		}
+
+		await tick();
+		gsap.fromTo(
+			projContentDiv,
+			{ opacity: 0, duration: 1, y: 200, ease: 'power2.out' },
+			{ opacity: 1, duration: 1, y: 0, ease: 'power2.out' }
+		);
 	}
-	function existProject(id: number) {
-		isHoverProject = 0;
+	async function existProject(id: number) {
+		gsap.to(projContentDiv, {
+			opacity: 0,
+			duration: 0.2,
+			ease: 'circ.in'
+		});
+		gsap.to(projheader, {
+			opacity: 1,
+			duration: 0.2,
+			ease: 'power2.in',
+			onComplete: () => {
+				switch (id) {
+					case 1:
+						isHoverProject = false;
+						break;
+					case 2:
+						isHoverProject2 = false;
+						break;
+					case 3:
+						isHoverProject3 = false;
+						break;
+					case 4:
+						isHoverProject4 = false;
+						break;
+					case 4:
+						isHoverProject5 = false;
+						break;
+
+					default:
+						break;
+				}
+				console.log('done');
+			}
+		});
 	}
 
 	const mepInfo = [
@@ -221,8 +337,12 @@
 
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
-			onmouseenter={enterHandler}
-			onmouseleave={leaveHandler}
+			onmouseenter={() => {
+				enterHandler(specialize[0].id);
+			}}
+			onmouseleave={() => {
+				leaveHandler(specialize[0].id);
+			}}
 			class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
 		>
 			{#if !isHoverSpecialization}
@@ -256,29 +376,216 @@
 				</div>
 			{/if}
 		</div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			onmouseenter={() => {
+				enterHandler(specialize[1].id);
+			}}
+			onmouseleave={() => {
+				leaveHandler(specialize[1].id);
+			}}
+			class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		>
+			{#if !isHoverSpecial2}
+				<p bind:this={headerDot} class="text-5xl">●</p>
+				<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
+					{specialize[1].header}
+				</h3>
+			{:else}
+				<img
+					bind:this={imgDiv}
+					src={specialize[1].img}
+					alt="MEP services"
+					class="spec-img-div h-full"
+				/>
+				<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
+					<h4 class="text-4xl font-black">{specialize[1].header}</h4>
+
+					<div bind:this={slideContent} class="flex w-[80ch]">
+						<p>
+							{specialize[1].content}
+						</p>
+					</div>
+				</div>
+			{/if}
+		</div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			onmouseenter={() => {
+				enterHandler(specialize[2].id);
+			}}
+			onmouseleave={() => {
+				leaveHandler(specialize[2].id);
+			}}
+			class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		>
+			{#if !isHoverSpecial3}
+				<p bind:this={headerDot} class="text-5xl">●</p>
+				<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
+					{specialize[2].header}
+				</h3>
+			{:else}
+				<img
+					bind:this={imgDiv}
+					src={specialize[2].img}
+					alt="MEP services"
+					class="spec-img-div h-full"
+				/>
+				<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
+					<h4 class="text-4xl font-black">{specialize[2].header}</h4>
+
+					<div bind:this={slideContent} class="flex w-[80ch]">
+						<p>
+							{specialize[2].content}
+						</p>
+					</div>
+				</div>
+			{/if}
+		</div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			onmouseenter={() => {
+				enterHandler(specialize[3].id);
+			}}
+			onmouseleave={() => {
+				leaveHandler(specialize[3].id);
+			}}
+			class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		>
+			{#if !isHoverSpecial4}
+				<p bind:this={headerDot} class="text-5xl">●</p>
+				<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
+					{specialize[3].header}
+				</h3>
+			{:else}
+				<img
+					bind:this={imgDiv}
+					src={specialize[3].img}
+					alt="MEP services"
+					class="spec-img-div h-full"
+				/>
+				<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
+					<h4 class="text-4xl font-black">{specialize[3].header}</h4>
+
+					<div bind:this={slideContent} class="flex w-[80ch]">
+						<p>
+							{specialize[3].content}
+						</p>
+					</div>
+				</div>
+			{/if}
+		</div>
 	</section>
 	<section class="font-grotesque mt-40">
 		<div class="mx-auto w-7xl"><h2 class="text-6xl font-black">Our Work</h2></div>
 		<div class="mt-5 flex h-[826px] items-center justify-between border-y-2">
-			{#each projects as projectSection}
-				<!-- svelte-ignore a11y_no_static_element_interactions -->
-				<div
-					onmouseenter={() => enterProject(projectSection.id)}
-					onmouseleave={() => existProject(projectSection.id)}
-					class="flex h-full flex-1 items-center justify-center text-5xl font-extralight hover:flex-2"
-				>
-					{#if isHoverProject == projectSection.id}
-						<div class="flex h-full flex-col justify-evenly py-28">
-							<p class="text-center">{projectSection.header}</p>
-							<p class="text-center text-xl font-light">{projectSection.content}</p>
-						</div>
-					{:else}
-						<p class="text-center">{projectSection.header}</p>
-					{/if}
-				</div>
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				onmouseenter={() => {
+					enterProject(projects[0].id);
+				}}
+				onmouseleave={() => {
+					existProject(projects[0].id);
+				}}
+				class="flex h-full flex-1 items-center justify-center text-5xl font-extralight transition-all duration-250 hover:flex-2"
+			>
+				{#if isHoverProject}
+					<div bind:this={projContentDiv} class="flex h-full flex-col justify-evenly py-28">
+						<p class="text-center">{projects[0].header}</p>
+						<p class="text-center text-xl font-light">{projects[0].content}</p>
+					</div>
+				{:else}
+					<p bind:this={projheader} class="text-center">{projects[0].header}</p>
+				{/if}
+			</div>
 
-				<div class="h-full w-px bg-black"></div>
-			{/each}
+			<div class="h-full w-px bg-black"></div>
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				onmouseenter={() => {
+					enterProject(projects[1].id);
+				}}
+				onmouseleave={() => {
+					existProject(projects[1].id);
+				}}
+				class="flex h-full flex-1 items-center justify-center text-5xl font-extralight transition-all duration-250 hover:flex-2"
+			>
+				{#if isHoverProject2}
+					<div bind:this={projContentDiv} class="flex h-full flex-col justify-evenly py-28">
+						<p class="text-center">{projects[1].header}</p>
+						<p class="text-center text-xl font-light">{projects[1].content}</p>
+					</div>
+				{:else}
+					<p bind:this={projheader} class="text-center">{projects[1].header}</p>
+				{/if}
+			</div>
+
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div class="h-full w-px bg-black"></div>
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				onmouseenter={() => {
+					enterProject(projects[2].id);
+				}}
+				onmouseleave={() => {
+					existProject(projects[2].id);
+				}}
+				class="flex h-full flex-1 items-center justify-center text-5xl font-extralight transition-all duration-250 hover:flex-2"
+			>
+				{#if isHoverProject3}
+					<div bind:this={projContentDiv} class="flex h-full flex-col justify-evenly py-28">
+						<p class="text-center">{projects[2].header}</p>
+						<p class="text-center text-xl font-light">{projects[2].content}</p>
+					</div>
+				{:else}
+					<p bind:this={projheader} class="text-center">{projects[2].header}</p>
+				{/if}
+			</div>
+
+			<div class="h-full w-px bg-black"></div>
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				onmouseenter={() => {
+					enterProject(projects[3].id);
+				}}
+				onmouseleave={() => {
+					existProject(projects[3].id);
+				}}
+				class="flex h-full flex-1 items-center justify-center text-5xl font-extralight transition-all duration-250 hover:flex-2"
+			>
+				{#if isHoverProject4}
+					<div bind:this={projContentDiv} class="flex h-full flex-col justify-evenly py-28">
+						<p class="text-center">{projects[3].header}</p>
+						<p class="text-center text-xl font-light">{projects[3].content}</p>
+					</div>
+				{:else}
+					<p bind:this={projheader} class="text-center">{projects[3].header}</p>
+				{/if}
+			</div>
+
+			<div class="h-full w-px bg-black"></div>
+
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				onmouseenter={() => {
+					enterProject(projects[4].id);
+				}}
+				onmouseleave={() => {
+					existProject(projects[4].id);
+				}}
+				class="flex h-full flex-1 items-center justify-center text-5xl font-extralight transition-all duration-250 hover:flex-2"
+			>
+				{#if isHoverProject5}
+					<div bind:this={projContentDiv} class="flex h-full flex-col justify-evenly py-28">
+						<p class="text-center">{projects[4].header}</p>
+						<p class="text-center text-xl font-light text-black">{projects[4].content}</p>
+					</div>
+				{:else}
+					<p bind:this={projheader} class="text-center">{projects[4].header}</p>
+				{/if}
+			</div>
+
+			<div class="h-full w-px bg-black"></div>
 		</div>
 	</section>
 	<section class="font-grotesque mx-auto mt-40 w-7xl">
