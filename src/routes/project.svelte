@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-	import gsap from 'gsap';
-
 	let props = $props();
 </script>
 
@@ -9,12 +6,17 @@
 <div
 	onmouseenter={() => props.enterProject(props.project.id)}
 	onmouseleave={() => props.existProject(props.project.id)}
-	class="flex h-[400px] min-w-[250px] flex-1 items-center justify-center px-4 py-10 text-2xl font-extralight transition-all duration-300 hover:flex-[1.5] active:flex-[1.5] md:h-[600px] md:text-5xl"
+	class="flex h-[400px] min-w-[250px] flex-1 items-center justify-center px-4 py-10 text-2xl font-extralight transition-all duration-250 hover:flex-[1.5] active:flex-[1.5] md:h-[600px] md:text-5xl"
 >
 	{#if props.isHover}
-		<div class="flex h-full max-w-xl flex-col justify-evenly text-center">
+		<div class="flex h-full max-w-xl flex-col items-center justify-evenly text-center">
 			<p>{props.project.header}</p>
 			<p class="mt-4 text-sm font-light md:text-xl">{props.project.content}</p>
+			<button
+				class="border-primary text-primary hover:bg-primary active:bg-primary active:text-background hover:text-background mt-10 w-1/2 border-4 px-6 py-2 text-base transition-all duration-300 ease-linear hover:cursor-pointer sm:mt-12 sm:px-6 sm:py-5 sm:text-lg"
+			>
+				<a href={props.link}>Projects</a>
+			</button>
 		</div>
 	{:else}
 		<p class="text-center">{props.project.header}</p>

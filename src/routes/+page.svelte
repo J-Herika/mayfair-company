@@ -11,7 +11,7 @@
 	$effect(() => {
 		gsap.from(mainSec, {
 			opacity: 0.5,
-			y: 100,
+			y: 200,
 			duration: 1,
 			ease: 'power1.out'
 		});

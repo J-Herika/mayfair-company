@@ -11,9 +11,11 @@
 		</p>
 	</div>
 
-	<button
-		class="border-primary text-primary hover:bg-primary active:bg-primary active:text-background hover:text-background mt-10 border-4 px-5 py-3 text-base transition-all duration-300 ease-linear hover:cursor-pointer sm:mt-12 sm:px-6 sm:py-5 sm:text-lg"
+	<a href="/about">
+		<button
+			class="border-primary text-primary hover:bg-primary active:bg-primary active:text-background hover:text-background mt-10 border-4 px-5 py-3 text-base transition-all duration-300 ease-linear hover:cursor-pointer sm:mt-12 sm:px-6 sm:py-5 sm:text-lg"
+		>
+			Read More
+		</button></a
 	>
-		Read More
-	</button>
 </section>

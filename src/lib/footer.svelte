@@ -17,7 +17,7 @@
 			class="flex flex-col gap-4 text-xl font-extralight sm:flex-row sm:flex-wrap sm:gap-10 sm:text-2xl"
 		>
 			<a
-				href="/"
+				href="/about"
 				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:transition-all after:duration-300 hover:after:h-1/2"
 				>About</a
 			>
@@ -27,7 +27,7 @@
 				>Projects</a
 			>
 			<a
-				href="/"
+				href="/contact"
 				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:transition-all after:duration-300 hover:after:h-1/2"
 				>Contact</a
 			>
@@ -42,9 +42,9 @@
 			</p>
 			<!-- svelte-ignore a11y_missing_attribute -->
 			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d331.8415044230076!2d-88.53732798262237!3d30.443398996175063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x889bebc27560cf7d%3A0xda9c6e63fccb006a!2s4405%20Neese%20Ln%2C%20Moss%20Point%2C%20MS%2039563%2C%20USA!5e1!3m2!1sen!2str!4v1747248192466!5m2!1sen!2str"
-				width="100%"
-				height="220"
+				src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d35745.65403544469!2d55.3714225!3d25.1291851!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6443320894a9%3A0xded8f3eee9ea9f99!2sA.S.B%20Tower!5e1!3m2!1sen!2str!4v1747681920285!5m2!1sen!2str"
+				width="350"
+				height="250"
 				style="border:0;"
 				loading="lazy"
 				referrerpolicy="no-referrer-when-downgrade"

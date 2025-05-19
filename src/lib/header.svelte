@@ -34,7 +34,7 @@
 
 		<section class="flex gap-2 text-lg font-extralight md:gap-10 md:text-2xl">
 			<a
-				href="/"
+				href="/about"
 				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2 active:after:h-1/2"
 				>About</a
 			>
@@ -44,7 +44,7 @@
 				>Projects</a
 			>
 			<a
-				href="/"
+				href="/contact"
 				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2 active:after:h-1/2"
 				>Contact</a
 			>
