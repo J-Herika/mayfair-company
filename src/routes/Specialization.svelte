@@ -59,14 +59,14 @@
 		if (textDiv && imgDiv) {
 			gsap.fromTo(
 				textDiv,
-				{ opacity: 0, x: 300, duration: 1, ease: 'power2.out' },
-				{ opacity: 1, x: 0, duration: 1, overwrite: false, ease: 'power2.out' }
+				{ opacity: 0, x: 300, duration: 1, ease: 'power2.out', delay: 0.2 },
+				{ opacity: 1, x: 0, duration: 1, overwrite: false, ease: 'power2.out', delay: 0.2 }
 			);
 
 			gsap.fromTo(
 				imgDiv,
-				{ opacity: 0, x: 300, duration: 1, ease: 'power2.out' },
-				{ opacity: 1, x: 0, duration: 1, overwrite: false, ease: 'power2.out' }
+				{ opacity: 0, x: 300, duration: 1, ease: 'power2.out', delay: 0.2 },
+				{ opacity: 1, x: 0, duration: 1, overwrite: false, ease: 'power2.out', delay: 0.2 }
 			);
 		}
 	}
@@ -135,7 +135,7 @@
 	<div
 		onmouseenter={() => enterHandler(specialize[0].id)}
 		onmouseleave={() => leaveHandler(specialize[0].id)}
-		class="border-primary relative flex h-auto flex-col items-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:gap-10"
+		class="border-primary relative flex min-h-32 flex-col items-start justify-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecialization}
 			<h3
@@ -163,7 +163,10 @@
 					<h5 bind:this={slideHeader} class="text-xl font-bold sm:text-2xl lg:text-3xl">
 						{specialize[0].contentList![slideCount].title}
 					</h5>
-					<div bind:this={slideContent} class="flex h-[168px] w-full max-w-prose lg:h-[96px]">
+					<div
+						bind:this={slideContent}
+						class="flex h-[168px] w-full max-w-prose text-sm font-light lg:h-[96px] lg:text-[16px]"
+					>
 						<p>
 							{specialize[0].contentList![slideCount].desc}
 						</p>
@@ -180,99 +183,124 @@
 	</div>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		onmouseenter={() => {
-			enterHandler(specialize[1].id);
-		}}
-		onmouseleave={() => {
-			leaveHandler(specialize[1].id);
-		}}
-		class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		onmouseenter={() => enterHandler(specialize[1].id)}
+		onmouseleave={() => leaveHandler(specialize[1].id)}
+		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecial2}
-			<p bind:this={headerDot} class="text-5xl">●</p>
-			<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
-				{specialize[1].header}
+			<h3
+				bind:this={headerText}
+				class="spe-header flex items-center gap-6 pl-2 text-3xl font-extralight sm:text-3xl md:gap-10 lg:text-7xl"
+			>
+				<div class="size-3 rounded-full bg-black"></div>
+				<span>{specialize[1].header}</span>
 			</h3>
 		{:else}
 			<img
 				bind:this={imgDiv}
 				src={specialize[1].img}
 				alt="MEP services"
-				class="spec-img-div h-full"
+				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
 			/>
-			<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
-				<h4 class="text-4xl font-black">{specialize[1].header}</h4>
-
-				<div bind:this={slideContent} class="flex w-[80ch]">
-					<p>
-						{specialize[1].content}
-					</p>
+			<div
+				bind:this={textDiv}
+				class="flex w-full flex-col justify-between gap-6 px-4 py-6 pt-4 pr-6 pb-2.5 md:p-0 lg:gap-12"
+			>
+				<div class="flex flex-col justify-between">
+					<h5 bind:this={slideHeader} class="text-xl font-bold sm:text-2xl lg:text-3xl">
+						{specialize[1].header}
+					</h5>
+					<div
+						bind:this={slideContent}
+						class="flex h-auto w-full max-w-prose text-sm lg:h-[96px] lg:text-[16px]"
+					>
+						<p>
+							{specialize[1].content}
+						</p>
+					</div>
 				</div>
 			</div>
 		{/if}
 	</div>
+
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		onmouseenter={() => {
-			enterHandler(specialize[2].id);
-		}}
-		onmouseleave={() => {
-			leaveHandler(specialize[2].id);
-		}}
-		class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		onmouseenter={() => enterHandler(specialize[2].id)}
+		onmouseleave={() => leaveHandler(specialize[2].id)}
+		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecial3}
-			<p bind:this={headerDot} class="text-5xl">●</p>
-			<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
-				{specialize[2].header}
+			<h3
+				bind:this={headerText}
+				class="spe-header flex items-center gap-6 pl-2 text-3xl font-extralight sm:text-3xl md:gap-10 lg:text-7xl"
+			>
+				<div class="size-3 rounded-full bg-black"></div>
+				<span>{specialize[2].header}</span>
 			</h3>
 		{:else}
 			<img
 				bind:this={imgDiv}
 				src={specialize[2].img}
 				alt="MEP services"
-				class="spec-img-div h-full"
+				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
 			/>
-			<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
-				<h4 class="text-4xl font-black">{specialize[2].header}</h4>
-
-				<div bind:this={slideContent} class="flex w-[80ch]">
-					<p>
-						{specialize[2].content}
-					</p>
+			<div
+				bind:this={textDiv}
+				class="flex w-full flex-col justify-between gap-6 px-4 py-6 pt-4 pr-6 pb-2.5 md:p-0 lg:gap-12"
+			>
+				<div class="flex flex-col justify-between">
+					<h5 bind:this={slideHeader} class="text-xl font-bold sm:text-2xl lg:text-3xl">
+						{specialize[2].header}
+					</h5>
+					<div
+						bind:this={slideContent}
+						class="flex h-auto w-full max-w-prose text-sm lg:h-[96px] lg:text-[16px]"
+					>
+						<p>
+							{specialize[2].content}
+						</p>
+					</div>
 				</div>
 			</div>
 		{/if}
 	</div>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
-		onmouseenter={() => {
-			enterHandler(specialize[3].id);
-		}}
-		onmouseleave={() => {
-			leaveHandler(specialize[3].id);
-		}}
-		class="border-primary relative flex h-[299px] items-center gap-10 border-t-2"
+		onmouseenter={() => enterHandler(specialize[3].id)}
+		onmouseleave={() => leaveHandler(specialize[3].id)}
+		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-y-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecial4}
-			<p bind:this={headerDot} class="text-5xl">●</p>
-			<h3 bind:this={headerText} class="spe-header text-7xl font-extralight">
-				{specialize[3].header}
+			<h3
+				bind:this={headerText}
+				class="spe-header flex items-center gap-6 pl-2 text-3xl font-extralight sm:text-3xl md:gap-10 lg:text-7xl"
+			>
+				<div class="size-3 rounded-full bg-black"></div>
+				<span>{specialize[3].header}</span>
 			</h3>
 		{:else}
 			<img
 				bind:this={imgDiv}
 				src={specialize[3].img}
 				alt="MEP services"
-				class="spec-img-div h-full"
+				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
 			/>
-			<div bind:this={textDiv} class=" flex flex-col justify-between gap-12 pt-5 pr-12 pb-2.5">
-				<h4 class="text-4xl font-black">{specialize[3].header}</h4>
-
-				<div bind:this={slideContent} class="flex w-[80ch]">
-					<p>
-						{specialize[3].content}
-					</p>
+			<div
+				bind:this={textDiv}
+				class="flex w-full flex-col justify-between gap-6 px-4 py-6 pt-4 pr-6 pb-2.5 md:p-0 lg:gap-12"
+			>
+				<div class="flex flex-col justify-between">
+					<h5 bind:this={slideHeader} class="text-xl font-bold sm:text-2xl lg:text-3xl">
+						{specialize[3].header}
+					</h5>
+					<div
+						bind:this={slideContent}
+						class="flex h-[168px] w-full max-w-prose text-sm lg:h-[96px] lg:text-[16px]"
+					>
+						<p>
+							{specialize[3].content}
+						</p>
+					</div>
 				</div>
 			</div>
 		{/if}

@@ -1,3 +1,4 @@
+import gsap from 'gsap';
 export const specialize = [
 	{
 		id: 1,
