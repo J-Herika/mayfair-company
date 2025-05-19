@@ -135,7 +135,7 @@
 	<div
 		onmouseenter={() => enterHandler(specialize[0].id)}
 		onmouseleave={() => leaveHandler(specialize[0].id)}
-		class="border-primary relative flex min-h-32 flex-col items-start justify-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
+		class="border-primary relative flex min-h-32 flex-col items-start justify-center gap-6 border-t-2 md:flex-row md:items-center md:justify-start lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecialization}
 			<h3
@@ -148,6 +148,7 @@
 		{:else}
 			<img
 				bind:this={imgDiv}
+				loading="lazy"
 				src={specialize[0].img}
 				alt="MEP services"
 				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
@@ -185,7 +186,7 @@
 	<div
 		onmouseenter={() => enterHandler(specialize[1].id)}
 		onmouseleave={() => leaveHandler(specialize[1].id)}
-		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
+		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-t-2 md:flex-row md:items-center md:justify-start lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecial2}
 			<h3
@@ -198,6 +199,7 @@
 		{:else}
 			<img
 				bind:this={imgDiv}
+				loading="lazy"
 				src={specialize[1].img}
 				alt="MEP services"
 				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
@@ -227,7 +229,7 @@
 	<div
 		onmouseenter={() => enterHandler(specialize[2].id)}
 		onmouseleave={() => leaveHandler(specialize[2].id)}
-		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-t-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
+		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-t-2 md:flex-row md:items-center md:justify-start lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecial3}
 			<h3
@@ -240,6 +242,7 @@
 		{:else}
 			<img
 				bind:this={imgDiv}
+				loading="lazy"
 				src={specialize[2].img}
 				alt="MEP services"
 				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
@@ -268,7 +271,7 @@
 	<div
 		onmouseenter={() => enterHandler(specialize[3].id)}
 		onmouseleave={() => leaveHandler(specialize[3].id)}
-		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-y-2 md:flex-row lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
+		class="border-primary relative flex h-auto min-h-33 flex-col items-start justify-center gap-6 border-y-2 md:flex-row md:items-center md:justify-start lg:h-[299px] lg:items-center lg:justify-start lg:gap-10"
 	>
 		{#if !isHoverSpecial4}
 			<h3
@@ -281,6 +284,7 @@
 		{:else}
 			<img
 				bind:this={imgDiv}
+				loading="lazy"
 				src={specialize[3].img}
 				alt="MEP services"
 				class="spec-img-div w-full object-cover md:h-full md:w-1/2"
