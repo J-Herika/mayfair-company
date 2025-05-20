@@ -12,11 +12,12 @@
 		<div class="flex h-full max-w-xl flex-col items-center justify-evenly text-center">
 			<p>{props.project.header}</p>
 			<p class="mt-4 text-sm font-light md:text-xl">{props.project.content}</p>
-			<button
+			<a
+				href={props.link}
 				class="border-primary text-primary hover:bg-primary active:bg-primary active:text-background hover:text-background mt-10 w-1/2 border-4 px-6 py-2 text-base transition-all duration-300 ease-linear hover:cursor-pointer sm:mt-12 sm:px-6 sm:py-5 sm:text-lg"
 			>
-				<a href={props.link}>Projects</a>
-			</button>
+				<button>Projects</button>
+			</a>
 		</div>
 	{:else}
 		<p class="text-center">{props.project.header}</p>
