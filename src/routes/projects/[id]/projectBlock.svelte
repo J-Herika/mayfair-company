@@ -1,25 +1,27 @@
 <script lang="ts">
-	let prop = $props();
+	const props = $props();
 </script>
 
 <div
-	class=" font-montserrat text-background text-md flex flex-col gap-5 rounded-2xl bg-[#1C1C1C] px-3 py-5 font-normal lg:p-5"
+	class="font-montserrat text-background text-md flex h-[332px] w-[25ch] flex-col justify-between gap-5 rounded-2xl bg-[#1C1C1C] px-3 py-5 font-normal shadow shadow-neutral-700 transition-all duration-250 ease-linear hover:bg-[#1c1c1cef] hover:shadow-lg active:bg-[#1c1c1cef] active:shadow-lg md:w-[30ch] lg:p-5"
 >
-	<h3
-		class=" max-w-[25ch] text-center text-xl font-black sm:max-w-[19ch] md:max-w-[20ch] lg:text-2xl"
-	>
-		Res Villa B+G+1 For Mr. Kashan Dubai Hills, Dubai
-	</h3>
-	<div>
-		<p class=" font-medium">Residential Villa, 2022</p>
-		<div class="flex gap-2">
+	<h3 class="font-grotesque text-center text-xl font-black">{props.project.name}</h3>
+
+	<div class="space-y-2">
+		<p class="font-bold">{props.project.description}</p>
+
+		<div class="flex flex-wrap gap-2">
 			<p class="font-medium">Consultant:</p>
-			<p class="opacity-70">NAGA Architects</p>
+			<p class="opacity-70">{props.project.consultants}</p>
 		</div>
-		<div class="flex gap-2">
+
+		<div class="flex flex-wrap gap-2">
 			<p class="font-medium">Value:</p>
-			<p class="opacity-70">8,000,000</p>
+			<p class="opacity-70">{props.project.contractValue}</p>
 		</div>
 	</div>
-	<h4 class="font-grotesque place-self-center font-black">Civil & MEP</h4>
+
+	<h4 class="font-grotesque place-self-center font-black">
+		{props.project.tags.join(' & ')}
+	</h4>
 </div>

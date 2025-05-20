@@ -4,39 +4,44 @@
 	import Header from '$lib/header.svelte';
 	import gsap from 'gsap';
 	import ProjectBlock from './projectBlock.svelte';
+	import { finishedProjects } from '$lib/content';
 
-	const id = page.params.id;
-
+	const id = page.params.id === 'A-C' ? 'A/C' : page.params.id;
+	const projects = finishedProjects.filter((project) => project.tags.includes(id));
 	let main: gsap.TweenTarget;
+	let header: gsap.TweenTarget;
 
-	// $effect(() => {
-	// 	gsap.from(main, {
-	// 		opacity: 0.5,
-	// 		y: 200,
-	// 		duration: 1,
-	// 		ease: 'power1.out'
-	// 	});
-	// });
+	$effect(() => {
+		gsap.from(main, {
+			opacity: 0.5,
+			y: 200,
+			duration: 1,
+			ease: 'power1.out'
+		});
+		gsap.from(header, {
+			opacity: 0.5,
+			y: 180,
+			duration: 1,
+			ease: 'power1.out'
+		});
+	});
 </script>
 
 <Header />
-<!-- bind:this={main} -->
-<div class="mx-auto max-w-4xl px-4">
-	<h1
-		class="font-grotesque mt-30 mb-14 text-6xl font-black md:mt-40 md:mb-20 md:text-7xl lg:text-8xl"
-	>
-		Projects
-	</h1>
-</div>
 
-<main class="font-grotesque mx-auto flex w-full max-w-7xl flex-col px-4">
+<h1
+	bind:this={header}
+	class=" font-grotesque mx-auto mt-30 mb-14 max-w-7xl px-4 text-6xl font-black md:mt-40 md:mb-20 md:text-7xl lg:text-8xl"
+>
+	<span class="">{id}</span> Projects
+</h1>
+<main bind:this={main} class="font-grotesque max-w-9xl mx-auto flex w-full flex-col px-4">
 	<section
-		class="flex flex-wrap items-center gap-2 tracking-wide md:justify-normal md:gap-2 lg:gap-6"
+		class="flex flex-wrap items-center justify-center gap-2 tracking-wide sm:justify-normal md:gap-2 lg:justify-center lg:gap-6"
 	>
-		<ProjectBlock />
-		<ProjectBlock />
-		<ProjectBlock />
-		<ProjectBlock />
+		{#each projects as project}
+			<ProjectBlock {project} />
+		{/each}
 	</section>
 </main>
 <Footer />

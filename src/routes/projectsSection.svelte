@@ -10,6 +10,16 @@
 	let isHoverProject4 = $state(false);
 	let isHoverProject5 = $state(false);
 
+	const projectTags: string[] = [
+		'Civil',
+		'MEP',
+		'Electrical',
+		'Plumbing',
+		'A-C',
+		'Pneumatic Tube System',
+		'Decoration'
+	];
+
 	async function enterProject(id: number) {
 		switch (id) {
 			case 1:
@@ -69,35 +79,35 @@
 			{existProject}
 			project={projects[0]}
 			isHover={isHoverProject}
-			link={'/projects/1'}
+			link={`/projects/${projectTags[0]}`}
 		/>
 		<Project
 			{enterProject}
 			{existProject}
 			project={projects[1]}
 			isHover={isHoverProject2}
-			link={'/projects/2'}
+			link={`/projects/${projectTags[6]}`}
 		/>
 		<Project
 			{enterProject}
 			{existProject}
 			project={projects[2]}
 			isHover={isHoverProject3}
-			link={'/projects/3'}
+			link={`/projects/${projectTags[5]}`}
 		/>
 		<Project
 			{enterProject}
 			{existProject}
 			project={projects[3]}
 			isHover={isHoverProject4}
-			link={'/projects/4'}
+			link={`/projects/${projectTags[4]}`}
 		/>
 		<Project
 			{enterProject}
 			{existProject}
 			project={projects[4]}
 			isHover={isHoverProject5}
-			link={'/projects/5'}
+			link={`/projects/${projectTags[1]}`}
 		/>
 	</div>
 </section>
