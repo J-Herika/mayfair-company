@@ -8,11 +8,15 @@
 	<h3 class="font-grotesque text-center text-xl font-black">{props.project.name}</h3>
 
 	<div class="space-y-2">
-		<p class="font-bold">{props.project.description}</p>
+		<p class="text-lg font-bold">{props.project.description}</p>
 
 		<div class="flex flex-wrap gap-2">
 			<p class="font-medium">Consultant:</p>
-			<p class="opacity-70">{props.project.consultants}</p>
+			{#if props.project.consultants}
+				<p class="opacity-70">{props.project.consultants}</p>
+			{:else}
+				<p class="opacity-70">Client</p>
+			{/if}
 		</div>
 
 		<div class="flex flex-wrap gap-2">

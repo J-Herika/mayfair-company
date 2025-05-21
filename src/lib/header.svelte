@@ -1,5 +1,6 @@
 <script lang="ts">
 	import gsap from 'gsap';
+	import { tick } from 'svelte';
 	let headerSec: gsap.TweenTarget;
 	$effect(() => {
 		gsap.from(headerSec, {
@@ -39,7 +40,7 @@
 				>About</a
 			>
 			<a
-				href="/"
+				href={'/#projects'}
 				class="relative inline-block after:absolute after:right-0 after:bottom-0 after:h-0 after:w-full after:bg-[#1E1E1E50] after:px-1 after:transition-all after:duration-300 hover:after:h-1/2 active:after:h-1/2"
 				>Projects</a
 			>

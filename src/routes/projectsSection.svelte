@@ -66,7 +66,7 @@
 	}
 </script>
 
-<section class="font-grotesque mt-40">
+<section class="font-grotesque mt-40 scroll-mt-47" id="projects">
 	<div class="mx-auto w-full max-w-7xl">
 		<h2 class="text-4xl font-black sm:text-5xl md:text-6xl">Our Work</h2>
 	</div>

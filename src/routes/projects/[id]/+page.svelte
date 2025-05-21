@@ -11,6 +11,12 @@
 	let main: gsap.TweenTarget;
 	let header: gsap.TweenTarget;
 
+	let visibleCount = $state(6);
+
+	function showMore() {
+		visibleCount += 6;
+	}
+
 	$effect(() => {
 		gsap.from(main, {
 			opacity: 0.5,
@@ -39,9 +45,17 @@
 	<section
 		class="flex flex-wrap items-center justify-center gap-2 tracking-wide sm:justify-normal md:gap-2 lg:justify-center lg:gap-6"
 	>
-		{#each projects as project}
+		{#each projects.slice(0, visibleCount) as project}
 			<ProjectBlock {project} />
 		{/each}
 	</section>
+	{#if visibleCount < projects.length}
+		<button
+			onclick={showMore}
+			class=" border-primary text-primary hover:bg-primary active:bg-primary active:text-background hover:text-background mt-10 place-self-center border-4 px-5 py-3 text-base transition-all duration-300 ease-linear hover:cursor-pointer sm:mt-12 sm:place-self-start sm:px-6 sm:py-5 sm:text-lg md:w-2xs lg:place-self-center"
+		>
+			Show More
+		</button>
+	{/if}
 </main>
 <Footer />
