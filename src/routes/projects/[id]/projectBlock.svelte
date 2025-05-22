@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="font-montserrat text-background text-md flex h-[332px] w-[25ch] flex-col justify-between gap-5 rounded-2xl bg-[#1C1C1C] px-3 py-5 font-normal shadow shadow-neutral-700 transition-all duration-250 ease-linear hover:bg-[#1c1c1cef] hover:shadow-lg active:bg-[#1c1c1cef] active:shadow-lg md:w-[30ch] lg:p-5"
+	class="font-montserrat text-background text-md flex h-[335px] w-[25ch] flex-col justify-between gap-5 rounded-2xl bg-[#1C1C1C] px-3 py-5 font-normal shadow shadow-neutral-700 transition-all duration-250 ease-linear hover:bg-[#1c1c1cef] hover:shadow-lg active:bg-[#1c1c1cef] active:shadow-lg md:w-[30ch] lg:p-5"
 >
 	<h3 class="font-grotesque text-center text-xl font-black">{props.project.name}</h3>
 

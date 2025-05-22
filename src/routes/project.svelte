@@ -6,7 +6,7 @@
 <div
 	onmouseenter={() => props.enterProject(props.project.id)}
 	onmouseleave={() => props.existProject(props.project.id)}
-	class="flex h-[400px] min-w-[250px] flex-1 items-center justify-center border-x-1 border-black px-4 py-10 text-2xl font-extralight transition-all duration-250 hover:flex-[1.5] active:flex-[1.5] md:h-[600px] md:text-5xl"
+	class="flex h-[400px] min-w-[250px] flex-1 items-center justify-center border-1 border-black px-4 py-10 text-2xl font-extralight transition-all duration-250 hover:flex-[1.5] active:flex-[1.5] md:h-[600px] md:text-5xl"
 >
 	{#if props.isHover}
 		<div class="flex h-full max-w-xl flex-col items-center justify-evenly text-center">

@@ -128,7 +128,7 @@
 </script>
 
 <section class="font-grotesque mt-20 sm:mt-40 lg:mt-60">
-	<div class="mx-auto w-full max-w-7xl">
+	<div class="mx-auto w-full max-w-7xl px-4 md:px-0">
 		<h2 class="text-3xl font-black sm:text-5xl lg:text-6xl">What we Specialize in</h2>
 	</div>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->

@@ -1,4 +1,4 @@
-<section class="font-grotesque mx-auto mt-40 w-full max-w-7xl">
+<section class="font-grotesque mx-auto mt-40 w-full max-w-7xl px-4 md:px-0">
 	<h2 class="text-4xl font-black sm:text-5xl md:text-6xl">About Us</h2>
 
 	<div class="mt-6 max-w-[80ch]">
