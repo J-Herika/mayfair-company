@@ -21,7 +21,7 @@
 
 		<div class="flex flex-wrap gap-2">
 			<p class="font-medium">Value:</p>
-			<p class="opacity-70">{props.project.contractValue}</p>
+			<p class="opacity-70">{new Intl.NumberFormat('en-US').format(props.project.contractValue)} AED</p>
 		</div>
 	</div>
 
